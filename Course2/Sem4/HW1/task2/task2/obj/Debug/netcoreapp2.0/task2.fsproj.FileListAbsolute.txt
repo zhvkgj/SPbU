@@ -1,0 +1,8 @@
+C:\Users\Sergey\Desktop\SPbU\Course2\Sem4\HW1\task2\task2\bin\Debug\netcoreapp2.0\task2.deps.json
+C:\Users\Sergey\Desktop\SPbU\Course2\Sem4\HW1\task2\task2\bin\Debug\netcoreapp2.0\task2.runtimeconfig.json
+C:\Users\Sergey\Desktop\SPbU\Course2\Sem4\HW1\task2\task2\bin\Debug\netcoreapp2.0\task2.runtimeconfig.dev.json
+C:\Users\Sergey\Desktop\SPbU\Course2\Sem4\HW1\task2\task2\bin\Debug\netcoreapp2.0\task2.dll
+C:\Users\Sergey\Desktop\SPbU\Course2\Sem4\HW1\task2\task2\bin\Debug\netcoreapp2.0\task2.pdb
+C:\Users\Sergey\Desktop\SPbU\Course2\Sem4\HW1\task2\task2\obj\Debug\netcoreapp2.0\task2.fsprojResolveAssemblyReference.cache
+C:\Users\Sergey\Desktop\SPbU\Course2\Sem4\HW1\task2\task2\obj\Debug\netcoreapp2.0\task2.dll
+C:\Users\Sergey\Desktop\SPbU\Course2\Sem4\HW1\task2\task2\obj\Debug\netcoreapp2.0\task2.pdb
