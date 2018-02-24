@@ -24,7 +24,34 @@ let checkStr str =
     [0..lengthStr / 2]
     |> List.forall (fun index -> str.[index] = str.[lengthStr - index - 1]) 
 
-printfn "%b" (checkStr "0123210")
+printfn "%b" (checkStr "0123210") 
 
 //2.4
+let splitList myList = 
+    let rec splitTemp (curCount, myList) =
+        match (curCount, myList) with
+        | (_, []) -> ([], [])
+        | (1, head::tail) -> (head::[], tail)
+        | (n, head::tail) -> 
+            let (left, right) = splitTemp (n - 1, tail)
+            (head::left, right)
 
+    splitTemp (List.length myList / 2, myList)
+
+let rec merge (left, right) =
+    match (left, right) with
+    | ([], myList) -> myList
+    | (myList, []) -> myList
+    | (headLeft::tailLeft, headRight::tailRight) -> 
+        match headLeft <= headRight with
+        | true -> headLeft :: merge (tailLeft, headRight::tailRight)
+        | false -> headRight :: merge (headLeft::tailLeft, tailRight)
+
+
+let rec sortPart listPart =
+    match listPart with
+    | _ when List.length listPart = 1 || List.length listPart = 0 -> listPart
+    | _ -> let (left, right) = splitList listPart
+           merge (sortPart left, sortPart right) 
+
+printfn "%A" (sortPart [1234;10;150;-12334;0;1245;11])
