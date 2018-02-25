@@ -1,22 +1,22 @@
 ﻿//2.1
-let comp number =
-    let rec tempFunc number curNum =
+(*let mul number =
+    let rec recursiveMul number curNum =
         if (number / 10 = 0) then curNum
-        else curNum * tempFunc (number / 10) ((number / 10) % 10) 
-    tempFunc number (number % 10)
+        else curNum * recursiveMul (number / 10) ((number / 10) % 10) 
+    recursiveMul number (number % 10)
       
-printfn "%d" (comp 656)
+printfn "%d" <| mul 656
 
 //2.2
 let searchNum list1 num =
-    let rec tempFunc list1 num curIndex =
+    let rec recursiveSearch list1 num curIndex =
         match list1 with
         | [] -> None
         | _ -> if (List.head list1 = num) then Some (curIndex)
-               else tempFunc (List.tail list1) num (curIndex + 1)
-    tempFunc list1 num 0
+               else recursiveSearch (List.tail list1) num (curIndex + 1)
+    recursiveSearch list1 num 0
 
-printfn "%O" (searchNum [1..3] 3) 
+printfn "%O" <| searchNum [1..3] 3
 
 //2.3
 let checkStr str =
@@ -24,34 +24,34 @@ let checkStr str =
     [0..lengthStr / 2]
     |> List.forall (fun index -> str.[index] = str.[lengthStr - index - 1]) 
 
-printfn "%b" (checkStr "0123210") 
+printfn "%b" <| checkStr "0123210"*)
 
 //2.4
 let splitList myList = 
-    let rec splitTemp (curCount, myList) =
+    let rec splitTemp curCount myList =
         match (curCount, myList) with
         | (_, []) -> ([], [])
         | (1, head::tail) -> (head::[], tail)
         | (n, head::tail) -> 
-            let (left, right) = splitTemp (n - 1, tail)
+            let (left, right) = splitTemp (n - 1) tail
             (head::left, right)
 
-    splitTemp (List.length myList / 2, myList)
+    splitTemp (List.length myList / 2) myList
 
-let rec merge (left, right) =
+let rec merge left right =
     match (left, right) with
     | ([], myList) -> myList
     | (myList, []) -> myList
     | (headLeft::tailLeft, headRight::tailRight) -> 
         match headLeft <= headRight with
-        | true -> headLeft :: merge (tailLeft, headRight::tailRight)
-        | false -> headRight :: merge (headLeft::tailLeft, tailRight)
+        | true -> headLeft :: merge tailLeft (headRight::tailRight)
+        | false -> headRight :: merge (headLeft::tailLeft) tailRight
 
 
 let rec sortPart listPart =
     match listPart with
-    | _ when List.length listPart = 1 || List.length listPart = 0 -> listPart
+    | [_] | [] -> listPart
     | _ -> let (left, right) = splitList listPart
-           merge (sortPart left, sortPart right) 
+           merge (sortPart left) (sortPart right) 
 
-printfn "%A" (sortPart [1234;10;150;-12334;0;1245;11])
+printfn "%A" <| sortPart [1234; 10; 150; -12334; 0; 1245; 11]
