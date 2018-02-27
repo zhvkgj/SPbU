@@ -1,5 +1,5 @@
 ﻿//2.1
-(*let mul number =
+let mul number =
     let rec recursiveMul number curNum =
         if (number / 10 = 0) then curNum
         else curNum * recursiveMul (number / 10) ((number / 10) % 10) 
@@ -24,19 +24,14 @@ let checkStr str =
     [0..lengthStr / 2]
     |> List.forall (fun index -> str.[index] = str.[lengthStr - index - 1]) 
 
-printfn "%b" <| checkStr "0123210"*)
+printfn "%b" <| checkStr "0123210"
 
 //2.4
-let splitList myList = 
-    let rec splitTemp curCount myList =
-        match (curCount, myList) with
-        | (_, []) -> ([], [])
-        | (1, head::tail) -> (head::[], tail)
-        | (n, head::tail) -> 
-            let (left, right) = splitTemp (n - 1) tail
-            (head::left, right)
-
-    splitTemp (List.length myList / 2) myList
+let rec split ls left right =
+    match ls with
+    | [] -> (left, right)
+    | [a] -> (a::left, right)
+    | a::b::tail -> split tail (a::left) (b::right)
 
 let rec merge left right =
     match (left, right) with
@@ -47,11 +42,10 @@ let rec merge left right =
         | true -> headLeft :: merge tailLeft (headRight::tailRight)
         | false -> headRight :: merge (headLeft::tailLeft) tailRight
 
-
 let rec sortPart listPart =
     match listPart with
     | [_] | [] -> listPart
-    | _ -> let (left, right) = splitList listPart
+    | _ -> let (left, right) = split listPart [] []
            merge (sortPart left) (sortPart right) 
 
 printfn "%A" <| sortPart [1234; 10; 150; -12334; 0; 1245; 11]
