@@ -13,3 +13,8 @@ let thirdEvenSearch myList =
     List.fold (fun acc x -> if (x % 2 = 0) then (acc + 1) else acc) 0 myList
 
 //3.2
+
+//3.3
+
+//3.4
+
