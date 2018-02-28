@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "tasks", "tasks\tasks.fsproj", "{12326C74-553A-4AD5-8320-1C33897F4531}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "hw3", "tasks\hw3.fsproj", "{12326C74-553A-4AD5-8320-1C33897F4531}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "tasks.Tests", "tasks.Tests\tasks.Tests.fsproj", "{5DC4246C-93F7-4A7E-8126-8990A368D3A3}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "hw3Test", "tasks.Tests\hw3Test.fsproj", "{5DC4246C-93F7-4A7E-8126-8990A368D3A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

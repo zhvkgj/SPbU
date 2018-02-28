@@ -13,12 +13,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="UnitTest1.fs" />
+    <Compile Include="UnitTest.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\tasks\tasks.fsproj" />
+    <ProjectReference Include="..\tasks\hw3.fsproj" />
   </ItemGroup>
 
 </Project>
