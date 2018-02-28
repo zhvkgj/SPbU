@@ -58,5 +58,5 @@ module Task4 =
         checkTR 2
 
     let buildInfPrimeSeq = 
-        Seq.initInfinite (fun index -> index + 1)
+        Seq.initInfinite (fun index -> if index = 0 then 2 else 2 * index + 1)
         |> Seq.filter (fun x -> checkIsPrime x)

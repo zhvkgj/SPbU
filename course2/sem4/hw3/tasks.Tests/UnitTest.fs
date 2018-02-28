@@ -1,5 +1,6 @@
 module Tests
 
+open FsUnit
 open NUnit.Framework
 open hw3
 open Task1
@@ -81,6 +82,11 @@ let ``calculation ((10 + (2 * 5)) / 4)`` () =
     let expected = 5
     let actual = eval (Division(Addition(Number(10), Multiplication(Number(2), Number(5))), Number(4)))
     Assert.AreEqual(expected, actual)
+
+[<Test>]
+let ``calculation 6 / 0 should throw Exception`` () =
+   (fun() -> eval(Division(Number 6, Number 0)) |> ignore) |> 
+            should throw typeof<System.Exception> 
 
 //3.4 testing
 [<Test>]
