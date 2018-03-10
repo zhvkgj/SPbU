@@ -21,10 +21,10 @@ module Task2 =
     | Node of 'a * Tree<'a> * Tree<'a>
     | Tip of 'a 
 
-    let rec treeFuncTR tree cont=
+    let rec treeMap tree mapping =
         match tree with 
-        | Node(x , left, right) ->  Node (cont x, treeFuncTR left cont, treeFuncTR right cont)                           
-        | Tip x -> Tip(cont x)
+        | Node(x , left, right) ->  Node (mapping x, treeMap left mapping, treeMap right mapping)                           
+        | Tip x -> Tip(mapping x)
 
 //3.3
 module Task3 =

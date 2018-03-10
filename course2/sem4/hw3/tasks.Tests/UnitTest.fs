@@ -67,13 +67,13 @@ let ``thirdEvenSearch [1..1000000] should unequal 500000`` () =
 [<Test>]
 let ``increase by one each element of the tree`` () =
     let expected = Node(1, Node(2, Tip(3), Tip(4)), Tip(5))
-    let actual = treeFuncTR (Node(0, Node(1, Tip(2), Tip(3)), Tip(4))) (fun x -> (x + 1))
+    let actual = treeMap (Node(0, Node(1, Tip(2), Tip(3)), Tip(4))) (fun x -> (x + 1))
     Assert.AreEqual(expected, actual)
 
 [<Test>]
 let ``squar each element of the tree`` () =
     let expected = Node(0, Node(1, Tip(4), Tip(9)), Tip(16))
-    let actual = treeFuncTR (Node(0, Node(1, Tip(2), Tip(3)), Tip(4))) (fun x -> (x * x))
+    let actual = treeMap (Node(0, Node(1, Tip(2), Tip(3)), Tip(4))) (fun x -> (x * x))
     Assert.AreEqual(expected, actual)
 
 //3.3 testing
