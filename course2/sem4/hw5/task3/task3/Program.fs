@@ -63,7 +63,7 @@ module Task3 =
                          | _   -> printfn "Contact doesn't exist!"
 
                          phoneBookHandler acc
-
+                         
                 | "4" -> printfn "Enter the call number: "
                          let callNumber = System.Console.ReadLine()
                          let tempLs = List.filter ((=) callNumber << snd) acc
@@ -73,11 +73,11 @@ module Task3 =
 
                          phoneBookHandler acc
 
-                | "5" -> printfn "%A" acc
+                | "5" -> List.map (printfn "%s") <| dataToStrArr acc |> ignore
                          
                          phoneBookHandler acc
 
-                | "6" -> printfn "Enter the absolute name of file like a D:\Admin\Desktop\test.txt"
+                | "6" -> printfn "Enter the absolute name of file, for example D:\Admin\Desktop\test.txt"
                          let fileName = System.Console.ReadLine()
                          System.IO.File.WriteAllLines(fileName, dataToStrArr acc)
                          
@@ -94,3 +94,6 @@ module Task3 =
                        phoneBookHandler acc
         
         phoneBookHandler []
+   
+
+  
