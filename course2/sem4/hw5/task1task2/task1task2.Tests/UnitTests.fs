@@ -2,6 +2,7 @@
 
 open NUnit.Framework
 open FsUnit
+open FsCheck.NUnit
 open hw5
 open Task1
 open Task2
@@ -32,26 +33,22 @@ let ``Advanced testing test 4`` () =
     checkBrackets "((((Andsjfdnsj[{}]{fskfmmflkd}ksmFmMFKFKF(mkkKKKM[]f))))))" |> should equal false
 
 //task2 testing
-[<Test>]
-let ``Testing listMulUltraPointFreeStyle0`` () =
-    listMulUltraPointFreeStyle0 10 [1; 2; 3] |> should equal [10; 20; 30]
+[<Property>]
+let ``Test for listMul'1`` num ls =
+     listMul'1 num ls = listMul'0 num ls
 
-[<Test>]
-let ``Testing listMulUltraPointFreeStyle1`` () =
-    listMulUltraPointFreeStyle1 10 [1; 2; 3] |> should equal [10; 20; 30]
+[<Property>]
+let ``Test for listMul'2`` num ls =
+    listMul'2 num ls = listMul'0 num ls
 
-[<Test>]
-let ``Testing listMulUltraPointFreeStyle2`` () =
-    listMulUltraPointFreeStyle2 10 [1; 2; 3] |> should equal [10; 20; 30]
+[<Property>]
+let ``Test for listMul'3`` num ls =
+    listMul'3 num ls = listMul'0 num ls
 
-[<Test>]
-let ``Testing listMulUltraPointFreeStyle3`` () =
-    listMulUltraPointFreeStyle3 10 [1; 2; 3] |> should equal [10; 20; 30]
+[<Property>]
+let ``Test for listMul'4`` num ls =
+    listMul'4 num ls = listMul'0 num ls
 
-[<Test>]
-let ``Testing listMulUltraPointFreeStyle4`` () =
-    listMulUltraPointFreeStyle4 10 [1; 2; 3] |> should equal [10; 20; 30]
-
-[<Test>]
-let ``Testing listMulUltraPointFreeStyle5`` () =
-    listMulUltraPointFreeStyle5 5 [1; 2; 3] |> should equal [10; 20; 30]
+[<Property>]
+let ``Test for resultFunc`` num ls =
+    resultFunc () num ls = listMul'0 num ls
