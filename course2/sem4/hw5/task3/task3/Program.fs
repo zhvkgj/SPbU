@@ -100,3 +100,4 @@ module Task3 =
                        phoneBookHandler acc
         
         phoneBookHandler []
+   phoneBook()
