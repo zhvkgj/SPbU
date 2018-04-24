@@ -26,3 +26,6 @@ let ``Simple test3`` () =
     Assert.AreEqual(expected, actual)
 
 //task2 tests
+Check F# Interactive)
+
+//task3 tests
