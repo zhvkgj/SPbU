@@ -18,33 +18,36 @@ module Task3 =
                 accFV S acc |> List.filter ((<>) x)
         accFV lambdaTerm []
 
-    let rec subst (lambdaTermFst: LambdaTerm) (lambdaTermSnd: LambdaTerm) var =
-        match lambdaTermFst with
-        | Var x -> if (x = var) then lambdaTermSnd else lambdaTermFst
+    let containsFV (T: LambdaTerm) (S: LambdaTerm) x var =
+        getFV T
+        |> List.contains x &&
+        getFV S
+        |> List.contains var
+
+    let rec subst (lambdaTermCur: LambdaTerm) (lambdaTermSubst: LambdaTerm) var =
+        match lambdaTermCur with
+        | Var x -> if (x = var) then lambdaTermSubst else lambdaTermCur
         | App(S, T) -> 
-            App(subst S lambdaTermSnd var, subst T lambdaTermSnd var)
+            App(subst S lambdaTermSubst var, subst T lambdaTermSubst var)
         
         | LambdaAbstr(S, x) -> 
-            if (not(getFV lambdaTermSnd
-                    |> List.contains x && 
-                    getFV S 
-                    |> List.contains var))
-            then LambdaAbstr(subst S lambdaTermSnd var, x)
+            if (not(containsFV lambdaTermSubst S x var))
+            then LambdaAbstr(subst S lambdaTermSubst var, x)
             else
                 let z = 
                     ['a'..'z'] 
                     |> List.filter 
                         (fun x ->
-                            not(List.contains x ((getFV lambdaTermSnd) @ (getFV S))))
+                            not(List.contains x ((getFV lambdaTermSubst) @ (getFV S))))
                     |> List.head
-                LambdaAbstr( subst (subst S (Var z) x) lambdaTermSnd var, z)
+                LambdaAbstr( subst (subst S (Var z) x) lambdaTermSubst var, z)
             
     let rec eval (lambdaTerm: LambdaTerm) =
         match lambdaTerm with
         | LambdaAbstr(S, x) -> LambdaAbstr(eval S, x)
-        | App (S, T) -> match eval S with 
-        ///вот это очень важно^^^^иначе потеряется рекурсивный вызов
+        | App (S, T) -> let tempCheck = eval S
+                        match tempCheck with 
                         | LambdaAbstr(M, x) -> eval (subst M T x)
-                        | _ -> App(eval S, eval T)
+                        | _ -> App(tempCheck, eval T)
         | Var x -> Var x
         
