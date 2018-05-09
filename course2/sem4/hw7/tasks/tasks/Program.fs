@@ -2,10 +2,10 @@
 
 module Task1 =
     type RoundingBuilder(rnd: int) =
-        member this.Bind(x, f) = f x
+        member this.Bind(x: float, f) = 
+            f <| System.Math.Round (x, rnd)
         member this.Return(x: float) =
-            let y = System.Math.Round (x, rnd)
-            y
+            System.Math.Round (x, rnd)
     
     let rounding a = new RoundingBuilder(a)
 
@@ -14,10 +14,9 @@ module Task2 =
     
     type CalculateStringBuilder() =
         member this.Bind(str, f) =
-            let mutable result = 0
-            match Int32.TryParse(str, &result) with
-            | true -> result |> f
-            | false -> None
+            match Int32.TryParse str with
+            | true, result -> result |> f
+            | false, _ -> None
 
         member this.Return(x) =
              Some x
