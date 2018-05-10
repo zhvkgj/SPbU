@@ -6,7 +6,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Program.fs" />
+    <Compile Include="BinTree.fs" />
+    <Compile Include="Network.fs" />
+    <Compile Include="Main.fs" />
   </ItemGroup>
 
 </Project>
