@@ -9,8 +9,4 @@
     <Compile Include="Program.fs" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\task.Tests\task.Tests.fsproj" />
-  </ItemGroup>
-
 </Project>

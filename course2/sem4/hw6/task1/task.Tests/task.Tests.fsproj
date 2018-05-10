@@ -15,4 +15,8 @@
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\task1\task1.fsproj" />
+  </ItemGroup>
+
 </Project>
