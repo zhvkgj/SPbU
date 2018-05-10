@@ -8,11 +8,6 @@ open FsUnit
 module Task1Test =
 
     open ComputersNetwork
-
-    type FakeRandom() =
-        inherit IRandomNum()
-        override this.Next() =
-            System.Random().Next(2)
     
     let mutable net = Network([], [])
 
@@ -49,5 +44,3 @@ module Task1Test =
     [<Test>]
     let ``Second test making step and getting condition of network ``() =
         net.StepWithGet() |> should equal "Infected computers: 0 1 2 "
-
-module 
