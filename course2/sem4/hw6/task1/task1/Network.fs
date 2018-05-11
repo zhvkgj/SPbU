@@ -1,10 +1,12 @@
 ﻿namespace Hw6
 
 module ComputersNetwork =
+
     /// <summary>
     /// Units of measure for probability of infection
     /// </summary>
     [<Measure>] type percent
+
     /// <summary>
     /// Partial-case active patterns for matching possibility of infection
     /// </summary>
@@ -13,6 +15,7 @@ module ComputersNetwork =
         match osName with
         | "linux" -> Some 35<percent>
         | _ -> None
+
     /// <summary>
     /// Partial-case active patterns for matching possibility of infection
     /// </summary>
@@ -21,6 +24,7 @@ module ComputersNetwork =
         match osName with 
         | "windows" -> Some 70<percent>
         | _ -> None
+
     /// <summary>
     /// Partial-case active patterns for matching possibility of infection
     /// </summary>
@@ -36,6 +40,7 @@ module ComputersNetwork =
     [<AbstractClass>]
     type IRandomNum() =
         abstract member Next : unit -> int
+
     /// <summary>
     /// Class with custom method of making random numbers
     /// </summary>
@@ -51,14 +56,17 @@ module ComputersNetwork =
     /// <param name="isInfected">Initial data of infection</param>
     /// <param name="randNum">Obj for randon number</param>
     type Computer(os: string, isInfected: bool, randNum: CustomRandNum) =
+
         /// <summary>
         /// Condition of infection
         /// </summary>
         let mutable infected = isInfected
+
         /// <summary>
         /// Probability of infection in percent
         /// </summary>
         let mutable possibilityOfInfection = 0<percent>
+
         // Set a possibility of infection by OS name
         do match os with
            | Windows x | Linux x | MacOS x -> 
@@ -70,11 +78,13 @@ module ComputersNetwork =
         /// </summary>
         member this.Infected 
             with get() = infected
+
         /// <summary>
         /// Get possibility of infection
         /// </summary>
         member this.PossibilityOfInfection
             with get() = possibilityOfInfection
+
         /// <summary>
         /// Try to infect current computer
         /// </summary>
@@ -88,14 +98,17 @@ module ComputersNetwork =
     /// <param name="computers">List of computers on the network</param>
     /// <param name="matrix">Adjacency matrix of computers communication</param>       
     type Network(computers: list<Computer>, matrix: list<list<bool>>) =
+
         /// <summary>
         /// List of computers on the current network
         /// </summary>
         let mutable computers = computers
+
         /// <summary>
         /// List of infected computers
         /// </summary>
         let mutable infectedComp = List.empty
+
         /// <summary>
         /// Checking current computer for infection
         /// and add to infected computers if it is infected
@@ -103,9 +116,12 @@ module ComputersNetwork =
         /// <param name="index">Index of the computer being scanned</param>
         let updateInfComp index =
             if (computers.[index].Infected) then 
-                infectedComp <- index :: infectedComp          
+                infectedComp <- index :: infectedComp
+
+        // Init default infected computer
         do for i in 0..computers.Length - 1 do
             updateInfComp i   
+        
         /// <summary>
         /// Make a step on the network
         /// </summary>
@@ -118,12 +134,14 @@ module ComputersNetwork =
                     if (matrix.[i].[j] && not(List.contains j infectedComp))
                         then computers.[j].TryToInfect()
                              updateInfComp j
+
         /// <summary>
         /// Print a state of the network
         /// </summary>
         member this.PrintState() =
             for i in infectedComp do
                 printfn "Computer with a number %i is infected..." i
+
         /// <summary>
         /// Get a state of the network
         /// </summary>
@@ -133,6 +151,7 @@ module ComputersNetwork =
                 if (computers.[i].Infected) then 
                     infoStr <- infoStr + i.ToString() + " "
             infoStr
+
         /// <summary>
         /// Make a step and print a state of the network
         /// </summary>
@@ -140,6 +159,7 @@ module ComputersNetwork =
             this.MakeStep()
             printfn "Current condition: "
             this.PrintState()
+
         /// <summary>
         /// Make a step and get a state of the network
         /// </summary>
