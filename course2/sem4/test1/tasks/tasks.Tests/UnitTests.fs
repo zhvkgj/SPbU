@@ -1,9 +1,10 @@
 ﻿module Tests
 
 open NUnit.Framework
+open FsUnit
 open Tasks
 open Task1
-open Task2
+open Task3
 open System
 
 //task1 tests
@@ -26,6 +27,24 @@ let ``Simple test3`` () =
     Assert.AreEqual(expected, actual)
 
 //task2 tests
-Check F# Interactive)
+//Check F# Interactive)
 
 //task3 tests
+[<Test>]
+let ``First test``() =
+    let stack = new MyStack<int>()
+    for i in 0..10
+        do stack.Push(i)
+    let expected = 10
+    let actual = stack.Pop()
+    Assert.AreEqual(expected, actual)
+
+[<Test>]
+let ``Second test``() =
+    let stack = new MyStack<int>()
+    stack.IsEmpty() |> should equal true
+
+[<Test>]
+let ``Third test``() =
+    let stack = new MyStack<int>()
+    (fun () -> stack.Pop() |> ignore) |> should throw typeof<System.Exception>

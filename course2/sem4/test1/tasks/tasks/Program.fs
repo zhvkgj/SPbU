@@ -34,50 +34,19 @@ module Task3 =
     open System
     open System.Collections.Generic
     
-    let maxSize = 255
+    type MyStack<'T>() =
+        let ls = new List<'T>()
 
-    type Item(key: string, value: string) =
-        let mutable key = key
-        let mutable value = value
-        member i.Key
-            with get() = key
-            and set k = key <- k
-        member i.Value
-            with get() = value
-            and set v = value <- v
-        
-    type HashTable(items: seq<int * List<Item>>) =
-        let elems = new Dictionary<_, _>(maxSize)
-        do items |> Seq.iter(fun (k, v) -> elems.Add (k, v))
-        let getHash (value: string) =
-            let lengthStr = value.Length
-            match lengthStr with
-            | 0 -> failwith "Value is empty!"
-            | _ when lengthStr > maxSize -> failwith "Value length > max value!"
-            | _ -> lengthStr
+        member this.Push value =
+            ls.Add(value)
 
-        member h.Insert key value =
-            let item = new Item(key, value)
-            let hash = getHash(item.Key)
-            let mutable hashTableItem = new List<Item>()
-            if (elems.ContainsKey(hash)) then 
-                hashTableItem <- elems.[hash]
-                elems.[hash].Add(item)
-            else
-                hashTableItem.Add(item)
-                elems.Add(hash, hashTableItem)
-        member h.Delete key =
-            let hash = getHash(key)
-            if (elems.ContainsKey(hash)) then
-                let hashTableItem = elems.[hash]
-                let item = hashTableItem.Find (fun i -> i.Key = key)
-                hashTableItem.Remove(item)
-            else failwith "Value not found!"
-        member h.Search key =
-            let hash = getHash(key)
-            if (elems.ContainsKey(hash)) then 
-                let hashTableItem = elems.[hash]
-                let item = hashTableItem.Find (fun i -> i.Key = key)
-                item
-            else failwith "Element not found!"
-                    
+        member this.IsEmpty() =
+            ls.Count = 0
+
+        member this.Pop () =
+            if (this.IsEmpty()) then
+                failwith "Stack is empty!"
+            let topIndex = ls.Count - 1
+            let value = ls.Item(topIndex)
+            ls.RemoveAt(topIndex)
+            value
