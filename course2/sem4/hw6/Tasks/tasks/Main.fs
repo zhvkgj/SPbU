@@ -24,8 +24,6 @@ module Main =
             if (node % 2 = 0) then myTree.Remove(node) |> ignore
             printfn "Count: %d" <| myTree.Count
         printfn "My tree: %A" <| myTree.ToList()
-        let curr = fst <| myTree.FindWithParent(7)
-        printfn "Current with value 7: %s" <| curr.ToString()
 
         let random = CustomRandNum(100)
         let computers = 

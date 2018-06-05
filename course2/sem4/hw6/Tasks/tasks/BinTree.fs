@@ -27,12 +27,25 @@ module BinTree =
         /// </summary>
         let mutable count = 0
 
+        // на самом деле хотел посмотреть, будет ли на F# работать что-то такое
+        // и использовать это в методе Remove(), однако в контексте F# это похоже оказалось невозможным
         /// <summary>
-        /// Function for compare two comparison elements
+        /// Find a necessary node and its' parent
         /// </summary>
-        let compare v1 v2 =
-            v1 > v2
-        
+        /// <param name="value">Necessary value</param>
+        let FindWithParent(value: 'T) =
+            let rec FindWithParentIn current value sought parent =
+                match current with
+                | Null -> (sought, parent)
+                | BinaryTreeNode(v, l, r) ->
+                    if (v = value) then 
+                        FindWithParentIn Null value current parent
+                    elif (v > value) then
+                        FindWithParentIn l value Null current
+                    else
+                        FindWithParentIn r value Null current
+            FindWithParentIn head value Null Null
+                
         /// <summary>
         /// Getter of count
         /// </summary>
@@ -50,7 +63,7 @@ module BinTree =
                 | Null -> 
                     BinaryTreeNode(value, Null, Null)
                 | BinaryTreeNode(v, l, r) ->
-                    if (compare v value) then
+                    if (v > value) then
                         BinaryTreeNode(v, addTo l value, r)
                     else 
                         BinaryTreeNode(v, l, addTo r value)
@@ -85,7 +98,7 @@ module BinTree =
                         | BinaryTreeNode(v1, l1, r1) ->
                             let minAtRight = findMinAtTree l1
                             BinaryTreeNode(minAtRight, l, fst <| removeFrom r minAtRight), true
-                    elif (compare v value) then
+                    elif (v > value) then
                         let tempResult = removeFrom l value
                         BinaryTreeNode(v, fst <| tempResult, r), snd <| tempResult
                     else
@@ -114,7 +127,7 @@ module BinTree =
         /// </summary>
         /// <param name="value">Request value</param>
         member this.Contains(value: 'T) =
-            this.FindWithParent value
+            FindWithParent value
             |> fst
             |> (fun n -> n <> Null)
         
@@ -125,25 +138,7 @@ module BinTree =
             head <- Null
             count <- 0
         
-        // на самом деле хотел посмотреть, будет ли на F# работать что-то такое
-        // и использовать это в методе Remove(), однако в контексте F# это похоже оказалось невозможным
-        /// <summary>
-        /// Find a necessary node and its' parent
-        /// </summary>
-        /// <param name="value">Necessary value</param>
-        member this.FindWithParent(value: 'T) =
-            let rec FindWithParentIn current value sought parent =
-                match current with
-                | Null -> (sought, parent)
-                | BinaryTreeNode(v, l, r) ->
-                    if (v = value) then 
-                        FindWithParentIn Null value current parent
-                    elif (compare v value) then
-                        FindWithParentIn l value Null current
-                    else
-                        FindWithParentIn r value Null current
-            FindWithParentIn head value Null Null
-        
+
         // IEnumerable interface
         interface IEnumerable<'T> with
             member this.GetEnumerator(): IEnumerator<'T> =

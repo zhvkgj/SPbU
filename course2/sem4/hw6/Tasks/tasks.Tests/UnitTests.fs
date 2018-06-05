@@ -25,12 +25,12 @@ module Task1Test =
     let ``Init tests before execution``() =
         let random = CustomRandNum(2)
 
-        matrix <- [[false; true; true];
+        matrix <- [[false; true; false];
                    [true; false; true];
-                   [true; true; false]]
+                   [false; true; false]]
 
-        computers <- [Computer("linux", false, random); 
-                      Computer("windows", true, random); 
+        computers <- [Computer("linux", true, random); 
+                      Computer("windows", false, random); 
                       Computer("macOS", false, random)]
 
         net <- Network(computers, matrix)
@@ -38,12 +38,12 @@ module Task1Test =
     [<Test>]
     let ``First test making step and getting condition of network``() =
         net.MakeStep() 
-        net.GetState() |> should equal "Infected computers: 0 1 2 "
+        net.GetState() |> should equal "Infected computers: 0 1 "
 
     [<Test>]
     let ``Second test making step and getting condition of network ``() =
-        net.StepWithGet() |> should equal "Infected computers: 0 1 2 "
-
+        net.StepWithGet() |> should equal "Infected computers: 0 1 "
+    
 module Task2Test =
 
     open BinTree
@@ -95,8 +95,6 @@ module Task2Test =
         myTree.Add(7.0)
         myTree.Count |> should equal 7
         myTree.ToList() |> should equal [2.0; 3.0; 4.0; 6.0; 7.0; 8.0; 10.0]
-        let curr = fst <| myTree.FindWithParent(2.0) 
-        curr.ToString() |> should equal "BinaryTreeNode (2.0,Null,BinaryTreeNode (3.0,Null,Null))" 
         myTree.Remove(5.0) |> should equal false
         myTree.Remove(4.0) |> should equal true
         myTree.ToList() |> should equal [2.0; 3.0; 6.0; 7.0; 8.0; 10.0]

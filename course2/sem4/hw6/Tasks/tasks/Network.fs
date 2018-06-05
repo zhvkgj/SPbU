@@ -133,7 +133,8 @@ module ComputersNetwork =
                     // which are not infected yet
                     if (matrix.[i].[j] && not(List.contains j infectedComp))
                         then computers.[j].TryToInfect()
-                             updateInfComp j
+            for i in 0..computers.Length - 1 do       
+                updateInfComp i
 
         /// <summary>
         /// Print a state of the network
