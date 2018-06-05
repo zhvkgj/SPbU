@@ -33,18 +33,18 @@ module BinTree =
         /// Find a necessary node and its' parent
         /// </summary>
         /// <param name="value">Necessary value</param>
-        let FindWithParent(value: 'T) =
-            let rec FindWithParentIn current value sought parent =
+        let findWithParent(value: 'T) =
+            let rec findWithParentIn current value sought parent =
                 match current with
                 | Null -> (sought, parent)
                 | BinaryTreeNode(v, l, r) ->
                     if (v = value) then 
-                        FindWithParentIn Null value current parent
+                        findWithParentIn Null value current parent
                     elif (v > value) then
-                        FindWithParentIn l value Null current
+                        findWithParentIn l value Null current
                     else
-                        FindWithParentIn r value Null current
-            FindWithParentIn head value Null Null
+                        findWithParentIn r value Null current
+            findWithParentIn head value Null Null
                 
         /// <summary>
         /// Getter of count
@@ -127,7 +127,7 @@ module BinTree =
         /// </summary>
         /// <param name="value">Request value</param>
         member this.Contains(value: 'T) =
-            FindWithParent value
+            findWithParent value
             |> fst
             |> (fun n -> n <> Null)
         
